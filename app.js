@@ -2,6 +2,7 @@ const express=require('express');
 const PORT = process.env.PORT || 3000;
 const authRoutes = require('./routes/authRoutes');
 const buyerRoutes = require('./routes/buyerRoutes');
+const sellerRoutes= require('./routes/sellerRoutes');
 
 const cookieParser = require('cookie-parser');
 const mongoose=require('mongoose');
@@ -31,7 +32,10 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 // routes
 app.get('*', checkUser);
-app.get('/', (req, res) => res.render('index'));
-app.get('/secret', requireAuth, (req, res) => res.render('secret'));
+//app.get('/', (req, res) => res.redirect('/dashboard'));
 app.use(authRoutes);
+
+app.use(requireAuth);
+
 app.use(buyerRoutes);
+app.use(sellerRoutes);

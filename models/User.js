@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 const products = new mongoose.Schema({
   productID: {
-    type: Number,
+    type: String,
     required: true
   },
   quantity: {

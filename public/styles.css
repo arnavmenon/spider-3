@@ -1,116 +1,59 @@
 /* google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+ */
 body{
-  margin: 20px 40px;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
+  margin: 0px 0px 0px 0px;
   background: #fafafa;
+  
 }
-h1, h2, h3, h4, ul, li, a, p, input, label, button, div, footer{
-  margin: 0;
-  padding: 0;
-  font-family: 'Quicksand', sans-serif;
-  color: #444;
-}
-ul{
-  list-style-type: none;
-}
+
 a{
   text-decoration: none;
 }
-nav{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 120px;
-}
-nav ul{
-  display: flex;
-  align-items: center;
-}
-nav li{
-  margin-left: 20px;
-}
-nav li a{
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 0.8em;
-  display: block;
-  padding: 10px 16px;
-  letter-spacing: 2px;
-}
-.btn{
-  border-radius: 36px;
-  background: #FEE996;
+
+
+header {
+display: block;
+    margin-bottom: 40px;
+    width: 100%;
+    height: 120px;
+    background-color: #FEE996;
+    border-bottom: 2px solid black;
 }
 
-button{
-  margin-top: 30px;
-  border-radius: 36px;
-  background: #FEE996;
-  border:0;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 0.8em;
-  display: block;
-  padding: 10px 16px;
-  letter-spacing: 2px;
+#index{
+  margin-left: 30px;
+  font-size: 5em;
+  text-align: left;
 }
-.error{
-  color: #ff0099;
-  margin: 10px 2px;
-  font-size: 0.8em;
-  font-weight: bold;
+
+#headerbtns{
+  position: absolute;
+  right: 20px;
 }
-header{
-  display: flex;
-  align-items: center;
-}
-header img{
-  width: 250px;
-  margin-right: 40px;
-}
-header h2{
+
+#login,#logout,#signup{
   font-size: 3em;
-  margin-bottom: 10px;
+
 }
-header h3{
-  font-size: 1.6em;
-  margin-bottom: 10px;
-  margin-left: 2px;
-  color: #999;
-}
-header .btn{
-  margin-top: 20px;
-  padding: 12px 18px;
-  text-transform: uppercase;
-  font-weight: bold;
-  display: inline-block;
-  font-size: 0.8em;
-}
-.recipes{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 30px;
-  row-gap: 80px;
-  margin: 80PX AUTO;
-  max-width: 1200px;
-}
-.recipe{
-  display: inline-block;
-  border-radius: 20px;
-  background: white;
-  position: relative;
+
+#sidenav {
+  height: 90%;
+  width: 225px; 
+  position: fixed; 
+  z-index: 1; 
+  top: 120px;
+  left: 0;
+  font-size: 1.5em;
+  background-color: #FEE996; 
+  overflow-x: hidden; 
+  padding-top: 20px;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 0 20px 30px 20px
+  opacity: 100%;
 }
-.recipe img{
-  width: 100px;
-  margin: -30px auto 20px;
-}
-footer{
-  text-align: center;
-  margin-top: 120px;
-  color: #aaa;
+
+#main-container{
+  margin-left: 260px;
 }

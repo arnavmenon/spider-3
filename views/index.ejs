@@ -1,7 +1,29 @@
 <%- include('partials/header'); -%>
 
-<p>hi</p>
-<a href="/secret">click for secret</a>
+<% if (user!=null&&user.usertype=='seller') { %>
+
+    <div id="main-container"> 
+
+      <h3>Your Inventory</h3>
+      <div id="items-container"></div>
+
+    </div>
+
+    </div>
+
+<% } else if(user!=null&&user.usertype=='buyer'){ %>
+
+    <div id="main-container">
+      <p>yooo its hott</p>
+    </div>
+
+
+
+<% } else { %>
+
+  <p>Welcome!</p>
+  <p><a href="/login">Login</a> to begin your shopping experience</p>
+<% } %>
 
 
 </body>

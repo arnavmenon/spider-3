@@ -2,20 +2,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoppp</title>
+  <title>Shopzilla</title>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+
 
 </head>
 <body>
-  <nav>
-    <h1><a href="/">Shopping App</a></h1>
-    <ul>
+  <header>
+    <a id="index" href="/">Shopzilla</a>
+    <span id="headerbtns">
       <% if (user) { %>
-        <li>Welcome, <%= user.email %></li>
-        <li><a href="/logout">Log out</a></li>
+        Welcome, <%= user.username %>
+        <a id="logout" href="/logout">Log out</a>
       <% } else { %>
-        <li><a href="/login">Log in</a></li>
-        <li><a href="/signup" class="btn">Sign up</a></li>
+        <a id="login" href="/login">Log in</a>
+        <a id="signup" href="/signup" class="btn">Sign up</a>
       <% } %>
-    </ul>
-  </nav>
+    </span>
+    
+  </header>
+
+
+
+  <% if (user!=null&&user.usertype=='buyer') { %>
+
+    <div id="sidenav">
+        <p><a href="/">Dashboard</a></p>
+        <p><a href="/search">Search</a></p>
+        <p><a href="/cart">Cart</a></p>
+        <p><a href="/history">Purchase History</a></p>
+    </div>
+
+    <div id="userid" style="display: none;"><%=user.id%></div>
+
+<% } else if(user!=null&&user.usertype=='seller') { %>
+
+    <div id="sidenav">
+      <p><a href="/newitem">Add item</a></p>
+      <p><a href="/">Dashboard</a></p>
+      <p><a href="/history">Sale History</a></p>
+    </div>
+
+    <div id="userid" style="display: none;"><%=user.id%></div>
+
+
+<% } %>
+
+  <body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
