@@ -14,6 +14,9 @@ const products = new mongoose.Schema({
   price: {
     type: Number
   },
+  cost: {
+    type: Number
+  },
   quantity: {
     type: Number
   },

@@ -27,8 +27,7 @@
           <% for(let i=6;i>=0;i--){
             if(user.history[i]!=null){
               item=user.history[i];
-              let totalpaid=parseInt(item.quantity)*parseInt(item.prodname);
-              console.log(totalpaid,item.quantity,item.price); %> 
+               %> 
 
             <div class="col-lg-4 my-1">  
 
@@ -36,7 +35,7 @@
                 <img src=<%=item.url%> width="500" height="300" id="card-img" class="card-img-top img-fluid" onerror="this.onerror=null; this.src='https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg'">
                 <div class="card-block bg-dark text-white px-4">
                   <h3 class="card-title"><%=item.prodname%> &nbsp&nbsp x<%=item.quantity%></h3>
-                  <!-- <h4>Total paid: Rs.<%=totalpaid%></h4>   -->                             
+                  <h4>Total Cost: Rs.<%=item.cost%></h4>                           
                 </div>
               </div>
             </div>

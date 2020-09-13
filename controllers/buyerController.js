@@ -81,7 +81,7 @@ module.exports.displayCart=(req,res)=>{
     let user = await User.findById(decodedToken.id);
     let cart=user.cart;
     cart.forEach(item => {
-      
+
       
     });
   });
@@ -105,8 +105,9 @@ module.exports.buy=(req, res)=> {
     if (err) return res.status(500).send("Error");
 
     var finalqty=item.quantity-qty;
+    var cost=item.price*qty;
 
-    var boughtitems= {productID: item.id, prodname:item.itemname, price:item.price, quantity: qty, url: item.url}
+    var boughtitems= {productID: item.id, prodname:item.itemname, price:item.price, cost: cost, quantity: qty, url: item.url}
     User.findByIdAndUpdate(userid, { $push : {history: boughtitems }})
     .then(result => {
 
@@ -115,7 +116,7 @@ module.exports.buy=(req, res)=> {
 
             let user = await User.findById(decodedToken.id);
             //const username=user.username,email=user.email;
-            boughtitems={productID: item.id, prodname:item.itemname, price:item.price, quantity: qty, url: item.url, username:user.username,email:user.email};
+            boughtitems={productID: item.id, prodname:item.itemname, price:item.price, cost: cost, quantity: qty, url: item.url, username:user.username,email:user.email};
             User.findByIdAndUpdate(item.sellerID, { $push : {history: boughtitems}})
             .then(result=>{
 
