@@ -18,6 +18,19 @@ module.exports.home=(req, res)=> {
 
 };
 
+module.exports.search=(req,res)=>{
+
+  let searchText=req.params.searchtext;
+
+  Item.find({$or:[{itemname:{ $regex: `^${searchText}`, $options: 'i' }},{itemdesc:{ $regex: `^${searchText}`, $options: 'i' }}]}, function (err, items) {
+    if (err) return res.status(500).send("Error");
+    if (!items) return res.status(404).send("No item found.");
+    res.status(200).send(items);
+    
+});
+
+}
+
 module.exports.productDetails=(req, res)=> {
     
 
@@ -54,8 +67,28 @@ module.exports.addtocart=(req, res)=> {
 };
 
 module.exports.displayCart=(req,res)=>{
+  const token = req.cookies.jwt;
+  jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+    let user = await User.findById(decodedToken.id);
+    console.log("yeeeeeeeeeeeeet",user.cart);
+  });
   res.render('cart');
 }
+
+module.exports.displayCart=(req,res)=>{
+  const token = req.cookies.jwt;
+  jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+    let user = await User.findById(decodedToken.id);
+    let cart=user.cart;
+    cart.forEach(item => {
+      
+      
+    });
+  });
+  res.render('cart');
+}
+
+
 
 module.exports.boughtHistory=(req,res)=>{
   res.render('bhistory');

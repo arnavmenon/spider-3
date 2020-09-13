@@ -24,10 +24,38 @@
 
     </div>
 
+    <button id="buyall">Buy All</button>
+
 </div>
 
 <script>
-    
+    const buyall=document.getElementById("buyall");
+
+    async function buyAllItems(){
+    try {
+      const res = await fetch('/buycart', { 
+        method: 'GET', 
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data) {
+          window.location='/';
+        }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+
+  /* buyall.addEventListener('click',(e)=>{
+      e.preventDefault();
+
+      buyAllItems();
+
+
+    }) */
 
 </script>
 

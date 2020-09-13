@@ -2,15 +2,25 @@
 
 <div id="main-container container">
 
-    <h3 class="row-name">All Items</h3>            
-    <div class="row mx-auto my-3">
+    <input class="mx-auto" type="text" id="searchbar" width="80%">  
+    <div class="container searchresults">
+      <h3 class="row-name">Search Results</h3>            
+      <div class="row mx-auto my-3" id="matchlist"></div>
+    </div>
+</div>
+
+  <div class="container" id="allitems">
+
+
+    <h3 class="row-name">All Items</h3>
+    <div class="row mx-auto my-3" id="allitems">
 
     <% if(itemlist!=[])
     { console.log(itemlist);
       itemlist.forEach(item=>{ %>
 
     
-        <div class="col-lg-3 my-1" onclick="window.location.href='/product/<%=item.id%>'">
+        <div class="col-lg-4 my-1" onclick="window.location.href='/product/<%=item.id%>'">
           <div class="card border-dark">
               <img src= <%=item.url %> width="500" height="300" id="card-img" class="card-img-top img-fluid" onerror="this.onerror=null; this.src='https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg'">
               <div class="card-block bg-dark text-white px-4">
@@ -23,8 +33,64 @@
   <%  })} %>
 
     </div>
+    </div>
 
 </div>
+
+<script>
+
+    const search=document.getElementById("searchbar");
+    const matchList=document.getElementById("matchlist");
+    const allitems=document.getElementById("allitems")
+
+    
+    const searchUsers=async searchText=>{
+
+      let matches=[];
+
+      if(searchText.length!=0)
+      { const res=await fetch(`/search/${searchText}`);
+        matches=await res.json();
+        console.log(matches);
+      }
+
+      if(searchText.length===0){
+          matches=[];   
+          matchList.innerHTML='';
+      }
+
+      outputHtml(matches); 
+    }; 
+
+
+      const outputHtml= matches=>{
+          if(matches.length>0){
+              const html=matches.map(
+                  match=>`
+                  <div class="col-lg-4 my-1" onclick="window.location.href='/product/${match._id}'">
+                  <div class="card border-dark">
+                    <img src=${match.url} width="500" height="300" id="card-img" class="card-img-top img-fluid" onerror="this.onerror=null; this.src='https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg'">
+                    <div class="card-block bg-dark text-white px-4">
+                      <h3 class="card-title">${match.itemname} &nbsp&nbsp x${match.quantity}</h3>                               
+                    </div>
+                  </div>
+                  </div> 
+                 `
+              ).join('');
+
+              matchList.innerHTML=html;
+              allitems.style.display="none";
+          }
+          else{
+            matches=[];   
+            matchList.innerHTML='';
+
+          }
+      };
+
+    
+    search.addEventListener('input', ()=>searchUsers(search.value));
+</script>
 
 
 </body>

@@ -9,6 +9,9 @@ router.post('/addtocart',buyerController.addtocart);
 router.get('/cart',buyerController.displayCart);
 router.post('/buy',buyerController.buy);
 router.get('/boughthistory',buyerController.boughtHistory)
+router.get('/search/:searchtext',buyerController.search);
+//router.get('/buycart',buyerController.buyCart)
+
 
 
 

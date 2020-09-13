@@ -14,28 +14,28 @@
 
     <% if (user!=null&&user.usertype=='buyer') { %>
 
-          <a href="/">Dashboard</a>
-          <a href="/search">Search</a>
-          <a href="/cart">Cart</a>
-          <a href="/boughthistory">Purchase History</a>
-          <a id="logout" href="/logout">Log out</a>
+         <span class="navtitle"><a href="/">Dashboard</a></span>
+          <span class="navtitle"> <a href="/search">Search</a></span>
+            <span class="navtitle"> <a href="/cart">Cart</a></span>
+              <span class="navtitle"> <a href="/boughthistory">Purchase History</a></span>
+                <span class="navtitle"><a id="logout" href="/logout">Log out</a></span>
   
   
   
   <% } else if(user!=null&&user.usertype=='seller') { %>
   
-        <a href="/newitem">Add item</a>
-        <a href="/">Dashboard</a>
-        <a href="/soldhistory">Sale History</a>
-        <a id="logout" href="/logout">Log out</a>
+        <span class="navtitle"><a href="/newitem">Add item</a></span>
+        <span class="navtitle"><a href="/">Dashboard</a></span>
+        <span class="navtitle"><a href="/soldhistory">Sale History</a></span>
+        <span class="navtitle"><a id="logout" href="/logout">Log out</a>
   
 
 
     <% } else if(user==null)  { %>
-    <span id="headerbtns">
+    <span id="headerbtns"></span>
 
         <a id="login" href="/login">Log in</a>
-        <a id="signup" href="/signup" class="btn">Sign up</a>
+        <a id="signup" href="/signup">Sign up</a>
 
     </span>
     <% } %>

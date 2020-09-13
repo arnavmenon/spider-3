@@ -29,13 +29,20 @@ a{
 }
 
 #headerbtns{
-  position: absolute;
-  right: 20px;
+
+  margin-left: 800px;
 }
 
-#login,#logout,#signup{
-  font-size: 3em;
+#login,#signup{
+  font-size: 2em;
+  margin-left: 25px;
+  margin-right:25px;
+}
 
+.navtitle{
+  margin-left: 25px;
+  margin-right:25px;
+  font-size: 2em;
 }
 
 #main-container{
@@ -45,5 +52,27 @@ a{
 #card-img{
   width: 4000px;
   height: 250px;
+}
+
+#login-container,#signup-container{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  margin-top: 150px;
+  border: 2px solid black;
+  border-radius: 10px;
+  width:40%;
+  padding-top: 45px;
+  padding-bottom: 45px;
+}
+
+#welcome{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  margin-top: 150px;
+  font-size: 3em;
 }
 

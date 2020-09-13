@@ -1,5 +1,7 @@
 <%- include('partials/header'); -%>
 
+<div id="signup-container">
+
 <form action="/signup">
   <h2>Sign up</h2>
   <label for="email">Username</label>
@@ -15,15 +17,17 @@
     <p>User Type:</p>
     <div>
     <input type="radio" name="usertype" value="buyer" id="buyer" checked>
-    <label>buyer</label>
+    <label>Buyer</label>
   </div>
   <div>
     <input type="radio" name="usertype" value="seller" id="seller">
-    <label>seller</label>
+    <label>Seller</label>
   </div>
 
   <button>Sign up</button>
 </form>
+
+</div>
 
 
 <script>
