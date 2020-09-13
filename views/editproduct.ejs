@@ -1,0 +1,82 @@
+<%- include('partials/header'); -%>
+
+<% if (user!=null&&user.usertype=='seller') { %>
+
+    <div id="main-container"> 
+
+        <form action="/updateproduct">
+            <div>
+                <input type="text" id="itemname" value=<%=item.itemname%> name="itemname" required>
+            </div>
+            <div>
+                <input type="text" id="itemdesc" value=<%=item.itemdesc%> name="itemdesc" required>
+            </div>
+            <div>
+                <input type="number" name="quantity" value=<%=item.quantity%> required>
+            </div>
+            <div>
+              <input type="number" name="price" value=<%=item.price%> required>
+            </div>
+            <div>
+              <input type="text" name="url" value=<%=item.url%> required>
+            </div>
+            <div>
+                <button class="my-3" id="update">Update</button>
+            </div>
+        </form>
+
+    </div>
+
+    <div id="itemid" style="display: none;"><%=item.id%></div>
+
+
+
+<% } else { %>
+
+    <div id="main-container"> 
+
+        <p>404 not found</p>
+    
+    </div>
+
+<% } %>
+
+<script>
+    const form = document.querySelector('form');
+
+  
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const itemname = form.itemname.value;
+  const itemdesc = form.itemdesc.value;
+  const price = form.price.value;
+  const quantity = form.quantity.value;
+  const url = form.url.value;
+  const itemid=document.getElementById("itemid").innerHTML;
+
+  var data;
+
+
+  try {
+    const res = await fetch('/updateproduct', { 
+      method: 'POST', 
+      body: JSON.stringify({ itemname, itemdesc, price, quantity, itemid, url }),
+      headers: {'Content-Type': 'application/json'}
+    });
+    data = await res.json();
+    console.log(data);
+
+    if (data) {
+      window.location='/';
+    }
+
+  }
+  catch (err) {
+    console.log(err);
+  }
+
+});
+  </script>
+</body>
+</html>

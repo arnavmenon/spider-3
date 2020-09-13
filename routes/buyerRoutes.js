@@ -8,6 +8,7 @@ router.get('/product/:id',buyerController.productDetails);
 router.post('/addtocart',buyerController.addtocart);
 router.get('/cart',buyerController.displayCart);
 router.post('/buy',buyerController.buy);
+router.get('/boughthistory',buyerController.boughtHistory)
 
 
 

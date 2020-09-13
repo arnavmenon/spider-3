@@ -10,7 +10,7 @@ module.exports.secret=(req,res)=>{
 module.exports.home=(req, res)=> {
     
      
-    Item.find({},null,{ sort: {quantity:1 }}, function(err,items){
+    Item.find({},null,{ sort: {itemname:1 }}, function(err,items){
       if (err) return res.status(500).send("Error");
       //if (!items) return res.status(404).send("No items found.");
       res.render('search',{itemlist: items});
@@ -57,6 +57,10 @@ module.exports.displayCart=(req,res)=>{
   res.render('cart');
 }
 
+module.exports.boughtHistory=(req,res)=>{
+  res.render('bhistory');
+}
+
 module.exports.buy=(req, res)=> {
     
 
@@ -84,7 +88,7 @@ module.exports.buy=(req, res)=> {
 
               Item.findByIdAndUpdate(itemid,{quantity: finalqty})
               .then(result=>{
-             
+                res.send(user);
               })
               .catch(err=>{console.log(err);})
 
@@ -104,5 +108,7 @@ module.exports.buy=(req, res)=> {
         console.log(err);
     });
   })
+
+  
 
 };

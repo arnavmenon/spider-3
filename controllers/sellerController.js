@@ -37,6 +37,52 @@ module.exports.newItem_post=async (req,res)=>{
     }
 }
 
+module.exports.getInventory=async(req,res)=>{
+
+    const token = req.cookies.jwt;
+      jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+
+            let user = await User.findById(decodedToken.id);
+            Item.find({sellerID:user.id},(err,items)=>{
+                if(err) return res.status(500).send("Error");
+                res.send(items);
+
+            })
+           
+          
+        });
+}
+
+module.exports.soldHistory=(req,res)=>{
+    res.render('shistory');
+  }
+
+module.exports.editProduct=(req,res)=>{
+    let itemid=req.params.id;
+
+    Item.findById(itemid,(err,item)=>{
+        if(err) return res.status(500).send("Error");
+        res.render('editproduct',{item:item});
+    })
+
+    
+  }
+
+  module.exports.updateProduct=async (req,res)=>{
+
+    const {itemname, itemdesc, price, quantity, itemid, url}=req.body;
+
+    console.log(req.body);
+
+    Item.findByIdAndUpdate(itemid,{itemname:itemname, itemdesc:itemdesc, price: price, quantity: quantity, url: url})
+    .then(result=>{
+        res.send({itemid});
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}
+
 
 //        itemname: req.body.itemname, 
 //itemdesc: req.body.itemdesc, 

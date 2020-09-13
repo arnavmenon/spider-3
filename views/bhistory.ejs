@@ -1,0 +1,43 @@
+<%- include('partials/header'); -%>
+
+
+<% if(user!=null&&user.usertype=='buyer'){ %>
+
+    <div id="main-container">
+      
+      <div class="container recentpurchases">
+        <h3 class="row-name">Purchase History</h3>            
+        <div class="row mx-auto my-3" id="recentitems">
+
+          <% let historyitems=user.history;
+             historyitems.forEach(item=>{ %> 
+
+            <div class="col-lg-4 my-1">  
+
+              <div class="card border-dark">
+                <img src=<%=item.url%> width="500" height="300" id="card-img" class="card-img-top img-fluid" onerror="this.onerror=null; this.src='https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg'">
+                <div class="card-block bg-dark text-white px-4">
+                  <h3 class="card-title"><%=item.itemname%> &nbsp&nbsp x<%=item.quantity%></h3>                               
+                </div>
+              </div>
+            </div>
+
+            
+         <% })} %>
+                   
+        </div> 
+        
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>
