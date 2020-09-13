@@ -76,3 +76,10 @@ a{
   font-size: 3em;
 }
 
+#product-container,#edit-container,#newitem-container{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}
+
