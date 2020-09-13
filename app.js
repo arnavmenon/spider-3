@@ -4,6 +4,9 @@ const authRoutes = require('./routes/authRoutes');
 const buyerRoutes = require('./routes/buyerRoutes');
 const sellerRoutes= require('./routes/sellerRoutes');
 
+
+
+
 const cookieParser = require('cookie-parser');
 const mongoose=require('mongoose');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
@@ -36,6 +39,5 @@ app.get('*', checkUser);
 app.use(authRoutes);
 
 app.use(requireAuth);
-
-app.use(buyerRoutes);
 app.use(sellerRoutes);
+app.use(buyerRoutes);

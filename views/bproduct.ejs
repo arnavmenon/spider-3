@@ -1,5 +1,8 @@
 <%- include('partials/header'); -%>
 
+<% if(user!=null&&user.usertype=='buyer'){ %>
+
+
 <div id="container">
 
     <div class="row mx-auto my-3">
@@ -29,6 +32,8 @@
 
 
 </div>
+
+<% } else { %><p>404 not found</p> <% } %>
 
 <script>
     const addtocart=document.getElementById("addtocart");

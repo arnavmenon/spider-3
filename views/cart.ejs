@@ -1,5 +1,8 @@
 <%- include('partials/header'); -%>
 
+<% if(user!=null&&user.usertype=='buyer'){ %>
+
+
 <div class="container">
 
     <h3 class="row-name">Your Cart</h3>            
@@ -27,6 +30,9 @@
     <!-- <button id="buyall">Buy All</button> -->
 
 </div>
+
+<% } else { %><p>404 not found</p> <% } %>
+
 
 <script>
     const buyall=document.getElementById("buyall");

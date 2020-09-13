@@ -2,11 +2,31 @@ const Item = require("../models/Item");
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
+function checkSeller(req,res){
+
+    const token = req.cookies.jwt;
+    jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+
+          let user = await User.findById(decodedToken.id);
+          if(user.usertype!="seller")
+            return 0;
+          else
+            return 1;  
+          })
+         
+        
+      }
+
+
+
 
 module.exports.newItem_get=(req, res)=> {
-    
-    res.render('newitem');
 
+/*     if(checkSeller(req,res)) */
+        res.render('newitem');
+/*     else    
+        res.redirect("/");
+ */
 };
 
 module.exports.newItem_post=async (req,res)=>{
@@ -82,8 +102,3 @@ module.exports.editProduct=(req,res)=>{
         console.log(err);
     })
 }
-
-
-//        itemname: req.body.itemname, 
-//itemdesc: req.body.itemdesc, 
-//quantity: req.body.quantity

@@ -1,5 +1,7 @@
 <%- include('partials/header'); -%>
 
+<% if(user!=null&&user.usertype=='buyer'){ %>
+
 <div id="main-container">
 
     <input type="text" id="searchbar" placeholder="Enter search query">  
@@ -36,6 +38,7 @@
     </div>
 
 </div>
+<% }else {%> <p>404 not found</p> <%} %>
 
 <script>
 
