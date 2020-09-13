@@ -83,3 +83,10 @@ a{
   margin: auto;
 }
 
+#searchbar{
+  margin-left: 180px;
+  width: 75%;
+  height: 50px;
+  margin-bottom: 30px;
+}
+

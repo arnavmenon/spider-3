@@ -1,8 +1,8 @@
 <%- include('partials/header'); -%>
 
-<div id="main-container container">
+<div id="main-container">
 
-    <input class="mx-auto" type="text" id="searchbar" width="80%">  
+    <input type="text" id="searchbar" placeholder="Enter search query">  
     <div class="container searchresults">
       <h3 class="row-name">Search Results</h3>            
       <div class="row mx-auto my-3" id="matchlist"></div>
@@ -12,7 +12,7 @@
   <div class="container" id="allitems">
 
 
-    <h3 class="row-name">All Items</h3>
+    <h3 class="row-name">&nbsp&nbspAll Items</h3>
     <div class="row mx-auto my-3" id="allitems">
 
     <% if(itemlist!=[])
@@ -79,7 +79,6 @@
               ).join('');
 
               matchList.innerHTML=html;
-              allitems.style.display="none";
           }
           else{
             matches=[];   
