@@ -5,49 +5,78 @@
   <title>Shopzilla</title>
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
-
+  
 
 </head>
 <body>
-  <header>
+  <div id="header">
     <a id="index" href="/">Shopzilla</a>
-    <span id="headerbtns">
-      <% if (user) { %>
-        Welcome, <%= user.username %>
+
+    <% if (user!=null&&user.usertype=='buyer') { %>
+
+          <a href="/">Dashboard</a>
+          <a href="/search">Search</a>
+          <a href="/cart">Cart</a>
+          <a href="/history">Purchase History</a>
+          <a id="logout" href="/logout">Log out</a>
+  
+  
+  
+  <% } else if(user!=null&&user.usertype=='seller') { %>
+  
+        <a href="/newitem">Add item</a>
+        <a href="/">Dashboard</a>
+        <a href="/history">Sale History</a>
         <a id="logout" href="/logout">Log out</a>
-      <% } else { %>
+  
+
+
+    <% } else if(user==null)  { %>
+    <span id="headerbtns">
+
         <a id="login" href="/login">Log in</a>
         <a id="signup" href="/signup" class="btn">Sign up</a>
-      <% } %>
+
     </span>
+    <% } %>
     
-  </header>
+  </div>
 
+  <% if(user!=null)  { %>
+  <div id="userid" style="display: none;"><%=user.id%></div>
+  <% } %>
 
+<!-- 
+    <% if (user!=null&&user.usertype=='buyer') { %>
 
-  <% if (user!=null&&user.usertype=='buyer') { %>
-
-    <div id="sidenav">
+      <div id="sidenav">
+          <p><a href="/">Dashboard</a></p>
+          <p><a href="/search">Search</a></p>
+          <p><a href="/cart">Cart</a></p>
+          <p><a href="/history">Purchase History</a></p>
+          <a id="logout" href="/logout">Log out</a>
+  
+      </div>
+  
+      <div id="userid" style="display: none;"><%=user.id%></div>
+  
+  <% } else if(user!=null&&user.usertype=='seller') { %>
+  
+      <div id="sidenav">
+        <p><a href="/newitem">Add item</a></p>
         <p><a href="/">Dashboard</a></p>
-        <p><a href="/search">Search</a></p>
-        <p><a href="/cart">Cart</a></p>
-        <p><a href="/history">Purchase History</a></p>
-    </div>
-
-    <div id="userid" style="display: none;"><%=user.id%></div>
-
-<% } else if(user!=null&&user.usertype=='seller') { %>
-
-    <div id="sidenav">
-      <p><a href="/newitem">Add item</a></p>
-      <p><a href="/">Dashboard</a></p>
-      <p><a href="/history">Sale History</a></p>
-    </div>
-
-    <div id="userid" style="display: none;"><%=user.id%></div>
+        <p><a href="/history">Sale History</a></p>
+        <a id="logout" href="/logout">Log out</a>
+  
+      </div>
+  
+      <div id="userid" style="display: none;"><%=user.id%></div>
+  
+  
+  <% } %> -->
 
 
-<% } %>
+
 
   <body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

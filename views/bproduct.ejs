@@ -1,0 +1,94 @@
+<%- include('partials/header'); -%>
+
+<div id="main-container container">
+
+    <div class="row mx-auto my-3">
+
+
+    
+        <div class="col-lg-4 my-1">
+
+            <img src= <%=item.url %> width="500" height="300" id="card-img" class="card-img-top img-fluid" onerror="this.onerror=null; this.src='https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg'">
+            <h3 class="card-title"><%=item.itemname %></h3> 
+            <p><%=item.itemdesc%></p>  
+            <p>Available: <span id="initialqty"><%=item.quantity%></span> units</p>  
+            <div>
+                Select quantity: <input id="itemqty" type="number"  value="1" max="<%=item.quantity%>" required>
+            </div>
+            <div>
+                <button id="addtocart">Add to cart</button>
+                <button id="buynow">Buy Now</button>
+            </div>                          
+      </div>
+    
+
+
+    </div>
+
+    <div id="itemid" style="display: none;"><%=item.id%></div>
+
+
+</div>
+
+<script>
+    const addtocart=document.getElementById("addtocart");
+    const buynow=document.getElementById("buynow");
+    const userid=document.getElementById("userid").innerHTML;
+    const itemid=(document.getElementById("itemid").innerHTML);
+
+      addtocart.addEventListener('click',async (e)=>{
+        e.preventDefault();
+
+        var qty=document.getElementById("itemqty").value;
+
+
+        try {
+      const res = await fetch('/addtocart', { 
+        method: 'POST', 
+        body: JSON.stringify({ qty, userid, itemid }),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      console.log(data);
+      
+      if (data) {
+        window.location='/cart';
+      }
+
+    }
+    catch (err) {
+      console.log(err);
+    }
+
+    });  
+
+    buynow.addEventListener('click',async (e)=>{
+        e.preventDefault();
+
+        var qty=document.getElementById("itemqty").value;
+
+        try {
+      const res = await fetch('/buy', { 
+        method: 'POST', 
+        body: JSON.stringify({ qty, userid, itemid }),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      console.log(data);
+      
+      if (data) {
+        window.location='/';
+      }
+
+    }
+    catch (err) {
+      console.log(err);
+    }
+
+    });  
+
+</script>
+
+
+</body>
+</html>

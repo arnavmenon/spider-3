@@ -11,7 +11,7 @@ module.exports.newItem_get=(req, res)=> {
 
 module.exports.newItem_post=async (req,res)=>{
 
-    const {itemname, itemdesc, quantity, userid}=req.body;
+    const {itemname, itemdesc, price, quantity, userid, url}=req.body;
     const sellerID=userid;
 
     
@@ -19,10 +19,10 @@ module.exports.newItem_post=async (req,res)=>{
     console.log(req.body);
 
     try{
-        const item=await Item.create({itemname, itemdesc, quantity, sellerID});
+        const item=await Item.create({itemname, itemdesc, price, quantity, sellerID, url});
         console.log(item);
 
-        var inventoryEntry={productID: item.id, quantity:item.quantity}
+        var inventoryEntry={productID: item.id, productname:itemname, price:price, quantity:item.quantity, url:url};
 
         User.findByIdAndUpdate(sellerID, { $push : {inventory: inventoryEntry }})
         .then(result => {

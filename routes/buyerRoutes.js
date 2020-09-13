@@ -3,8 +3,13 @@ const buyerController = require('../controllers/buyerController');
 
 const router = Router();
 
-router.post('/updatecart', buyerController.updateCart);
-router.get('/secret',buyerController.secret);
+router.get('/search',buyerController.home);
+router.get('/product/:id',buyerController.productDetails);
+router.post('/addtocart',buyerController.addtocart);
+router.get('/cart',buyerController.displayCart);
+router.post('/buy',buyerController.buy);
+
+
 
 
 module.exports = router;

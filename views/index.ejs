@@ -4,12 +4,34 @@
 
     <div id="main-container"> 
 
-      <h3>Your Inventory</h3>
-      <div id="items-container"></div>
 
-    </div>
+      <div class="container inventory">
+        <h3 class="row-name">Inventory</h3>            
+        <div class="row mx-auto my-3" id="inventoryitems">
+            
+          <% if(user.inventory!=[])
+          { console.log(user);
+            user.inventory.forEach(item=>{ %>
 
-    </div>
+          
+              <div class="col-lg-4 my-1">
+                <div class="card border-dark">
+                    <img src= <%=item.url %> width="500" height="300" id="card-img" class="card-img-top img-fluid" onerror="this.onerror=null; this.src='https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg'">
+                    <div class="card-block bg-dark text-white px-4">
+                        <h3 class="card-title"><%=item.prodname %> &nbsp&nbsp x<%=item.quantity%></h3>                               
+                    </div>
+                </div>
+            </div>
+          
+          
+        <%  })} %>
+
+                                        
+        </div> 
+        
+      </div>
+
+   </div>
 
 <% } else if(user!=null&&user.usertype=='buyer'){ %>
 
@@ -24,6 +46,28 @@
   <p>Welcome!</p>
   <p><a href="/login">Login</a> to begin your shopping experience</p>
 <% } %>
+
+
+<script>
+  const inventory=document.getElementById("inventoryitems");
+
+  if(inventory){
+    try {
+      const res = await fetch('/getinventory', { 
+        method: 'GET', 
+        body: JSON.stringify({ qty, userid, itemid }),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      console.log(data);
+
+
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+</script>
 
 
 </body>

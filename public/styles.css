@@ -12,13 +12,14 @@ a{
 }
 
 
-header {
-display: block;
+#header {
+    display: block;
     margin-bottom: 40px;
     width: 100%;
     height: 120px;
     background-color: #FEE996;
     border-bottom: 2px solid black;
+
 }
 
 #index{
@@ -37,23 +38,12 @@ display: block;
 
 }
 
-#sidenav {
-  height: 90%;
-  width: 225px; 
-  position: fixed; 
-  z-index: 1; 
-  top: 120px;
-  left: 0;
-  font-size: 1.5em;
-  background-color: #FEE996; 
-  overflow-x: hidden; 
-  padding-top: 20px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  opacity: 100%;
+#main-container{
+  margin-left: 50px;
 }
 
-#main-container{
-  margin-left: 260px;
+#card-img{
+  width: 4000px;
+  height: 250px;
 }
+

@@ -10,10 +10,16 @@ const itemSchema = new mongoose.Schema({
     itemdesc: {
       type: String
     },
+    price: {
+      type: Number
+    },
     quantity: {
       type: Number   
      },
     sellerID: {
+      type: String
+    },
+    url: {
       type: String
     }
 

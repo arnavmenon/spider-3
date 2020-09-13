@@ -8,9 +8,26 @@ const products = new mongoose.Schema({
     type: String,
     required: true
   },
+  prodname: {
+    type: String
+  },
+  price: {
+    type: Number
+  },
   quantity: {
     type: Number
+  },
+  url: {
+    type: String
+  },
+  username: {
+    type: String
+  },
+  email: {
+    type: String
   }
+
+  
 })
 
 

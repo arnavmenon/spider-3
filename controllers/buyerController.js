@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Item = require("../models/Item");
 const jwt = require('jsonwebtoken');
 
 module.exports.secret=(req,res)=>{
@@ -6,26 +7,102 @@ module.exports.secret=(req,res)=>{
   res.render('secret');
 }
 
-module.exports.updateCart=(req, res)=> {
+module.exports.home=(req, res)=> {
     
-    var userid;
+     
+    Item.find({},null,{ sort: {quantity:1 }}, function(err,items){
+      if (err) return res.status(500).send("Error");
+      //if (!items) return res.status(404).send("No items found.");
+      res.render('search',{itemlist: items});
+    })
 
-    const token = req.cookies.jwt;
+};
 
-    jwt.verify(token, 'net ninja secret', (err, decodedToken) => {
-
-            userid=decodedToken.id;
-      });
-
-    var cartitems= {productID: '1', quantity: '5'}
-
+module.exports.productDetails=(req, res)=> {
     
+
+  let id=req.params.id;
+     
+  Item.findById(id,function(err,item){
+    if (err) return res.status(500).send("Error");
+    //if (!items) return res.status(404).send("No items found.");
+    res.render('bproduct',{item: item});
+  })
+
+};
+
+module.exports.addtocart=(req, res)=> {
+    
+
+  const {qty, userid, itemid}=req.body;
+
+  console.log(qty,userid,itemid);
+     
+  Item.findById(itemid,function(err,item){
+    if (err) return res.status(500).send("Error");
+
+    var cartitems= {productID: item.id, prodname:item.itemname, price:item.price, quantity: qty, url: item.url}
     User.findByIdAndUpdate(userid, { $push : {cart: cartitems }})
     .then(result => {
-        res.json({ redirect: '/' });
+        res.send(item);
       })
       .catch(err => {
         console.log(err);
     });
+  })
+
+};
+
+module.exports.displayCart=(req,res)=>{
+  res.render('cart');
+}
+
+module.exports.buy=(req, res)=> {
+    
+
+  const {qty, userid, itemid}=req.body;
+
+  console.log(qty,userid,itemid);
+     
+  Item.findById(itemid,function(err,item){
+    if (err) return res.status(500).send("Error");
+
+    var finalqty=item.quantity-qty;
+
+    var boughtitems= {productID: item.id, prodname:item.itemname, price:item.price, quantity: qty, url: item.url}
+    User.findByIdAndUpdate(userid, { $push : {history: boughtitems }})
+    .then(result => {
+
+      const token = req.cookies.jwt;
+      jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+
+            let user = await User.findById(decodedToken.id);
+            //const username=user.username,email=user.email;
+            boughtitems={productID: item.id, prodname:item.itemname, price:item.price, quantity: qty, url: item.url, username:user.username,email:user.email};
+            User.findByIdAndUpdate(item.sellerID, { $push : {history: boughtitems}})
+            .then(result=>{
+
+              Item.findByIdAndUpdate(itemid,{quantity: finalqty})
+              .then(result=>{
+             
+              })
+              .catch(err=>{console.log(err);})
+
+             
+            })
+            .catch(err=>{console.log(err);})
+            
+
+
+            //console.log(user);
+           
+          
+        });
+        
+      })
+      .catch(err => {
+        console.log(err);
+    });
+  })
 
 };

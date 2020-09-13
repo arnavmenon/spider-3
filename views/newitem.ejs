@@ -15,6 +15,12 @@
                 <input type="number" name="quantity" placeholder="Quantity" required>
             </div>
             <div>
+              <input type="number" name="price" placeholder="Price" required>
+            </div>
+            <div>
+              <input type="text" name="url" placeholder="Image URL" required>
+            </div>
+            <div>
                 <button class="my-3" id="additem">Add</button>
             </div>
         </form>
@@ -42,7 +48,9 @@
   
       const itemname = form.itemname.value;
       const itemdesc = form.itemdesc.value;
+      const price = form.price.value;
       const quantity = form.quantity.value;
+      const url = form.url.value;
       const userid=document.getElementById("userid").innerHTML;
 
       var data;
@@ -51,7 +59,7 @@
       try {
         const res = await fetch('/newitem', { 
           method: 'POST', 
-          body: JSON.stringify({ itemname, itemdesc, quantity, userid }),
+          body: JSON.stringify({ itemname, itemdesc, price, quantity, userid, url }),
           headers: {'Content-Type': 'application/json'}
         });
         data = await res.json();
