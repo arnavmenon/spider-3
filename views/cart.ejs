@@ -27,7 +27,11 @@
 
     </div>
 
-    <!-- <button id="buyall">Buy All</button> -->
+  <% if(user.cart!=[]){ %>
+
+    <button id="buyall">Checkout</button>
+
+  <% } %>
 
 </div>
 
@@ -43,11 +47,10 @@
         method: 'GET', 
         headers: {'Content-Type': 'application/json'}
       });
-      const data = await res.json();
+      const data = await res;
       console.log(data);
-      if (data) {
-          window.location='/';
-        }
+      window.location='/boughthistory';
+        
     }
     catch (err) {
       console.log(err);
@@ -55,13 +58,13 @@
   }
 
 
-  /* buyall.addEventListener('click',(e)=>{
+   buyall.addEventListener('click',(e)=>{
       e.preventDefault();
 
       buyAllItems();
 
 
-    }) */
+    }) 
 
 </script>
 

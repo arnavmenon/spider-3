@@ -11,6 +11,9 @@ router.get('/getinventory',sellerController.getInventory);
 router.get('/soldhistory',sellerController.soldHistory);
 router.get('/editproduct/:id',sellerController.editProduct);
 router.post('/updateproduct',sellerController.updateProduct);
+router.get('/graph',sellerController.getGraph);
+router.get('/graphInfo',sellerController.showGraph);
+
 
 
 

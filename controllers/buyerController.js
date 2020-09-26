@@ -70,21 +70,64 @@ module.exports.displayCart=(req,res)=>{
   const token = req.cookies.jwt;
   jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
     let user = await User.findById(decodedToken.id);
-    console.log("yeeeeeeeeeeeeet",user.cart);
+    //console.log("yeeeeeeeeeeeeet",user.cart);
   });
   res.render('cart');
 }
 
-module.exports.displayCart=(req,res)=>{
+module.exports.buyCart=(req,res)=>{
   const token = req.cookies.jwt;
+  const today= new Date();
+  var returnmsg=[];
   jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
     let user = await User.findById(decodedToken.id);
     let cart=user.cart;
     cart.forEach(item => {
+      Item.findById(item.productID,(err,shopitem)=>{
+        //if(err) return res.status(500).send("Error");
 
-      
+        if(item.quantity>shopitem.quantity){
+          returnmsg.push(`${cart.prodname} could not be purchased, Try again`);
+          return;
+        }
+        
+        else{
+
+          var finalqty=shopitem.quantity-item.quantity;
+          var cost=shopitem.price*item.quantity;
+          var boughtitems= {productID: shopitem.id, prodname:shopitem.itemname, price:shopitem.price, cost: cost, quantity: item.quantity, url: shopitem.url, date: today}
+          User.findByIdAndUpdate(user.id, { $push : {history: boughtitems }})
+          .then(result=>{
+
+            boughtitems={productID: shopitem.id, prodname:shopitem.itemname, price:shopitem.price, cost: cost, quantity: item.quantity, url: shopitem.url, username:user.username,email:user.email,date: today};
+            User.findByIdAndUpdate(item.sellerID, { $push : {history: boughtitems}})
+            .then(result=>{
+
+              Item.findByIdAndUpdate(shopitem.id,{quantity: finalqty})
+              .then(result=>{
+                returnmsg.push(`${cart.prodname} purchased.`);
+
+              })
+              .catch(err=>{console.log(err);})
+            })
+            .catch(err=>{console.log(err);})
+
+          })
+          .catch(err=>{console.log(err);})
+
+        }
     });
-  });
+    });
+
+    var emptyarray=[];
+    User.findByIdAndUpdate(user.id, { $set : {cart: emptyarray }})
+    .then(result=>{
+      res.render('cart',{message: returnmsg});
+    })
+    .catch(err=>{console.log(err);})
+
+});
+
   res.render('cart');
 }
 
@@ -98,6 +141,7 @@ module.exports.buy=(req, res)=> {
     
 
   const {qty, userid, itemid}=req.body;
+  const today= new Date();
 
   console.log(qty,userid,itemid);
      
@@ -107,7 +151,7 @@ module.exports.buy=(req, res)=> {
     var finalqty=item.quantity-qty;
     var cost=item.price*qty;
 
-    var boughtitems= {productID: item.id, prodname:item.itemname, price:item.price, cost: cost, quantity: qty, url: item.url}
+    var boughtitems= {productID: item.id, prodname:item.itemname, price:item.price, cost: cost, quantity: qty, url: item.url, date: today}
     User.findByIdAndUpdate(userid, { $push : {history: boughtitems }})
     .then(result => {
 
@@ -116,7 +160,7 @@ module.exports.buy=(req, res)=> {
 
             let user = await User.findById(decodedToken.id);
             //const username=user.username,email=user.email;
-            boughtitems={productID: item.id, prodname:item.itemname, price:item.price, cost: cost, quantity: qty, url: item.url, username:user.username,email:user.email};
+            boughtitems={productID: item.id, prodname:item.itemname, price:item.price, cost: cost, quantity: qty, url: item.url, username:user.username,email:user.email, date: today};
             User.findByIdAndUpdate(item.sellerID, { $push : {history: boughtitems}})
             .then(result=>{
 

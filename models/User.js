@@ -28,6 +28,9 @@ const products = new mongoose.Schema({
   },
   email: {
     type: String
+  },
+  date: {
+    type: Date
   }
 
   

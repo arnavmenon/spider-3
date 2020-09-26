@@ -102,3 +102,36 @@ module.exports.editProduct=(req,res)=>{
         console.log(err);
     })
 }
+
+module.exports.getGraph=(req,res)=>{
+    res.render('graph');
+}
+
+module.exports.showGraph=async (req,res)=>{
+    const today=new Date();
+    const token = req.cookies.jwt;
+    var profitarray=[0,0,0,0,0,0,0];
+
+    jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+
+        let user = await User.findById(decodedToken.id);
+        console.log(user.id);
+
+        user.history.forEach(item=>{
+            let itemdate=item.date;
+            var one_day = 1000 * 60 * 60 * 24 ;
+            var result = Math.round(today.getTime() - itemdate.getTime()) / (one_day);
+            var finalresult = result.toFixed(0); 
+            console.log(finalresult);
+            if(finalresult<=6){
+
+                profitarray[finalresult]+=item.cost;
+            }
+        })
+        console.log(profitarray);
+
+        res.json(profitarray);
+    })
+           
+   
+}
